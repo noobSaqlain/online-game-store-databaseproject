@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    /* Remove default margin */
+    height: 100vh;
+    /* Set body height to 100% of the viewport height */
+}
+
+.home-wrapper {
+    display: flex;
+    /* Use flexbox for layout */
+    height: 100vh;
+    /* Ensure the wrapper takes the full height */
+}
+
+.home-buy,
+.home-rent,
+.home-sell {
+    flex: 1;
+    /* Each div will take equal width (1/3 of the wrapper) */
+    height: 100%;
+    /* Full height of the wrapper */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transition for transform and shadow */
+    display: flex;
+    /* Center text */
+    justify-content: center;
+    /* Center text horizontally */
+    align-items: center;
+    /* Center text vertically */
+    font-size: 2rem;
+    /* Adjust font size as needed */
+    background-color: #5C4033;
+    /* Background color for visibility */
+    color: white;
+    /* Text color for contrast */
+    border-radius: 10px;
+    /* Optional: rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* Shadow for depth */
+}
+
+.home-buy:hover,
+.home-rent:hover,
+.home-sell:hover {
+    transform: scale(1.1);
+    /* Scale up the div on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    /* Optional: increase shadow on hover for depth */
+    z-index: 1;
+    /* Bring the hovered div above others */
+}
