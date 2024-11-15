@@ -1,0 +1,21 @@
+.rent-content {
+    flex-grow: 1;
+    width: calc(100vw - 310px);
+    height: calc(100vh - 150px);
+    /* Allow content to take up the remaining space */
+    background-color: #c4cac3;
+
+    position: fixed;
+    /* Fix it to the bottom-right */
+    bottom: 10px;
+    /* 20px gap from the bottom */
+    right: 20px;
+    /* 20px gap from the right */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3),
+        /* Shadow on bottom-right */
+        -4px -4px 8px rgba(0, 0, 0, 0.3),
+        /* Shadow on top-left */
+        0px 0px 15px rgba(0, 0, 0, 0.2);
+    /* Soft, central shadow for depth */
+    border-radius: 15px;
+}

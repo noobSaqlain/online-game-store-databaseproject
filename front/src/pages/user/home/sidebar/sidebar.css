@@ -1,0 +1,41 @@
+.sidebar-container {
+    width: 250px;
+    height: calc(100vh - 150px);
+    /* Ensure the sidebar height is adjusted for 150px gap */
+    position: fixed;
+    top: 140px;
+    /* Position 150px below the top of the viewport */
+    left: 20px;
+    background-color: #c4cac3;
+    border-right: 1px solid #333;
+    padding: 20px;
+    overflow-y: auto;
+    /* Allow scrolling if content overflows */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3),
+        /* Shadow on bottom-right */
+        -4px -4px 8px rgba(0, 0, 0, 0.3),
+        /* Shadow on top-left */
+        0px 0px 15px rgba(0, 0, 0, 0.2);
+    /* Soft, central shadow for depth */
+    border-radius: 15px;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* Aligns content to the left */
+    height: 100%;
+
+}
+
+.sidebar-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.sidebar-content p {
+    font-size: 16px;
+    color: #333;
+}
