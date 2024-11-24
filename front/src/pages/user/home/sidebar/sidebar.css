@@ -20,22 +20,22 @@
     border-radius: 15px;
 }
 
-.sidebar-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    /* Aligns content to the left */
-    height: 100%;
-
+.filter-section {
+    margin-bottom: 20px;
 }
 
-.sidebar-content h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.sidebar-content p {
-    font-size: 16px;
+.filter-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
     color: #333;
+}
+
+.filter-section input,
+.filter-section select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }

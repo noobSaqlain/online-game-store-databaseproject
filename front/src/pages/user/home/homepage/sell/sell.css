@@ -1,21 +1,95 @@
-.sell-content {
-    flex-grow: 1;
-    width: calc(100vw - 310px);
-    height: calc(100vh - 150px);
-    /* Allow content to take up the remaining space */
-    background-color: #c4cac3;
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    position: fixed;
-    /* Fix it to the bottom-right */
-    bottom: 10px;
-    /* 20px gap from the bottom */
-    right: 20px;
-    /* 20px gap from the right */
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3),
-        /* Shadow on bottom-right */
-        -4px -4px 8px rgba(0, 0, 0, 0.3),
-        /* Shadow on top-left */
-        0px 0px 15px rgba(0, 0, 0, 0.2);
-    /* Soft, central shadow for depth */
-    border-radius: 15px;
+/* Main container for the sell page */
+.sell-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+/* Title of the page */
+.sell-page h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Styling for the form */
+.sell-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Styling for each form group (label and input) */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Label styling */
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Input fields styling */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* Focus effect on input fields */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Styling for submit button */
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .sell-page {
+        padding: 20px;
+    }
+
+    .sell-form {
+        width: 100%;
+        padding: 15px;
+    }
 }

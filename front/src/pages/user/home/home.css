@@ -19,24 +19,23 @@ body {
     /* Each div will take equal width (1/3 of the wrapper) */
     height: 100%;
     /* Full height of the wrapper */
+    position: relative;
+    /* Ensure that text-overlay is positioned relative to this div */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* Smooth transition for transform and shadow */
     display: flex;
-    /* Center text */
     justify-content: center;
-    /* Center text horizontally */
     align-items: center;
-    /* Center text vertically */
+    /* Center content */
     font-size: 2rem;
     /* Adjust font size as needed */
-    background-color: #5C4033;
-    /* Background color for visibility */
     color: white;
     /* Text color for contrast */
     border-radius: 10px;
     /* Optional: rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     /* Shadow for depth */
+    cursor: pointer;
 }
 
 .home-buy:hover,
@@ -48,4 +47,51 @@ body {
     /* Optional: increase shadow on hover for depth */
     z-index: 1;
     /* Bring the hovered div above others */
+}
+
+.jugg,
+.phan,
+.slayer {
+    width: 100%;
+    height: 100%;
+    /* Make the image fill the width and height of its container */
+    object-fit: cover;
+    /* Ensure the image covers the container, cropping if necessary */
+    border-radius: 10px;
+    /* Match the div's rounded corners */
+    opacity: 0.4;
+    /* Dim image slightly by default */
+    transition: opacity 0.3s ease;
+}
+
+.jugg:hover,
+.phan:hover,
+.slayer:hover {
+    opacity: 0.7;
+    /* Increase opacity on hover */
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    /* Ensure the text is above the image */
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    pointer-events: none;
+    /* Prevent interaction with the text */
+}
+
+.home-buy::before,
+.home-rent::before,
+.home-sell::before {
+    content: '';
+    /* Removed content */
+    display: none;
+    /* No longer needed, since we're using .text-overlay */
 }

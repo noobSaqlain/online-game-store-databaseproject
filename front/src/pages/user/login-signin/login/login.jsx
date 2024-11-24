@@ -1,26 +1,33 @@
 import './login.css';
 import { useState } from 'react';
-import axios from 'axios';  // Rename to lowercase 'axios'
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+const Login = ({ onLogin }) => {
     const [userName, setUserName] = useState('');
     const [userPassword, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Username:', userName);
-        console.log('Password:', userPassword);
+        setError('');
 
-        // Send with matching keys expected by backend
         axios.post('http://localhost:4000/login', {
             username: userName,
             password: userPassword
-        })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-    }
+        }).then(res => {
+            if (res.data.userAllowed) {
+                onLogin(true); // Inform parent component that the user is allowed
+                navigate('/home'); // Redirect to home page after successful login
+            } else {
+                setError(res.data.message || "Invalid credentials");
+            }
+        }).catch(err => {
+            console.error("Error during login:", err);
+            setError("An error occurred. Please try again.");
+        });
+    };
 
     function signUpRouteHandler() {
         navigate('/sign-up');
@@ -46,7 +53,6 @@ function Login() {
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
                         />
-                        {/* user name input */}
                         <input
                             type="password"
                             name="login-password"
@@ -54,10 +60,12 @@ function Login() {
                             value={userPassword}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        {/* user password input */}
+                        {/* Display error message if there's any */}
+                        {error && <div className="error-message">{error}</div>}
+
                         <button className='loginSubmitButton' type='submit'>Login</button>
 
-                        <button className='signUpRoute' onClick={signUpRouteHandler}>sign up</button>
+                        <button className='signUpRoute' onClick={signUpRouteHandler}>Sign up</button>
                     </div>
                 </form>
             </div>

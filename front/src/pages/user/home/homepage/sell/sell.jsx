@@ -1,54 +1,123 @@
-import { React, useEffect, useState } from 'react';
-import axios from "axios";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './sell.css';
-import SideBar from '../../sidebar/sidebar.jsx';
-import NavBar from '../../navbar/navbar.jsx';
 
 const SellPage = () => {
-    const [games, setGames] = useState([]);
+    const [gameDetails, setGameDetails] = useState({
+        name: '',
+        publisher: '',
+        genre: '',
+        condition: '',
+        imageUrl: ''
+    });
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchGames = async () => {
-            try {
-                const res = await axios.get('http://localhost:4000/home/buy');  // Ensure this is port 4000
-                if (res.data.success) {
-                    console.log(res);
-                    setGames(res.data.data);
-                } else {
-                    console.error('Failed to fetch games:', res.data.message);
-                }
-            } catch (error) {
-                console.error('Error fetching games:', error.message);
-            }
-        };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setGameDetails(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
-        fetchGames();
-    }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:4000/home/sell', gameDetails)
+            .then(response => {
+                console.log('Game listed successfully:', response.data);
+                alert('Game listed successfully!');
+                // Reset the form fields
+                setGameDetails({
+                    name: '',
+                    publisher: '',
+                    genre: '',
+                    condition: '',
+                    imageUrl: ''
+                });
+            })
+            .catch(error => {
+                console.error('Error listing game:', error);
+                alert('An error occurred while submitting the game details. Please try again.');
+            });
+
+    };
 
     return (
-        <div className='sell-container'>
-
-            <NavBar />
-            <SideBar />
-            <div className="sell-content">
-                <div className="games-list">
-                    {games.map((game) => (
-                        <div key={game.game_id} className="game-card">
-                            <div className="game-image">
-                                {/* Add an image or placeholder */}
-                                <img src="https://via.placeholder.com/150" alt={game.name} />
-                            </div>
-                            <div className="game-details">
-                                <h3>{game.name}</h3>
-                                <p><strong>Publisher:</strong> {game.publisher}</p>
-                                <p><strong>Condition:</strong> {game.condition}</p>
-                                <button className="buy-button">Buy Now</button>
-                            </div>
-                        </div>
-                    ))}
+        <div className="sell-page">
+            <h1>Sell Your Game</h1>
+            <form onSubmit={handleSubmit} className="sell-form">
+                <div className="form-group">
+                    <label htmlFor="name">Game Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={gameDetails.name}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
-            </div>
+
+                <div className="form-group">
+                    <label htmlFor="publisher">Publisher</label>
+                    <input
+                        type="text"
+                        id="publisher"
+                        name="publisher"
+                        value={gameDetails.publisher}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="genre">Genre</label>
+                    <input
+                        type="text"
+                        id="genre"
+                        name="genre"
+                        value={gameDetails.genre}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="condition">Condition</label>
+                    <select
+                        id="condition"
+                        name="condition"
+                        value={gameDetails.condition}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Select Condition</option>
+                        <option value="New">New</option>
+                        <option value="Used">Used</option>
+                        <option value="Refurbished">Refurbished</option>
+                        <option value="damaged">Damaged</option>
+                        <option value="Like-new">Like new</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="imageUrl">Image URL</label>
+                    <input
+                        type="url"
+                        id="imageUrl"
+                        name="imageUrl"
+                        value={gameDetails.imageUrl}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="submit-button">Submit Game</button>
+            </form>
         </div>
-    )
-}
+    );
+};
+
 export default SellPage;
