@@ -1,0 +1,129 @@
+:root {
+    --primary-color: #4CAF50;
+    /* Buttons, accents */
+    --primary-hover-color: #45a049;
+    --secondary-color: #2196F3;
+    /* Confirm button */
+    --secondary-hover-color: #1976D2;
+    --error-color: #E53935;
+    /* Error or warnings */
+    --background-color: #f9f9f9;
+    /* Page background */
+    --card-background-color: #ffffff;
+    /* Form and summary background */
+    --text-color: #333;
+    /* Default text color */
+    --input-border-color: #ccc;
+    /* Input field borders */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    /* Box shadow */
+}
+
+.payment-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.payment-methods {
+    margin-bottom: 20px;
+}
+
+.payment-methods label {
+    margin-right: 20px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.credit-card-form {
+    margin-top: 20px;
+    background-color: var(--card-background-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.credit-card-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.credit-card-form div {
+    margin-bottom: 15px;
+}
+
+.credit-card-form label {
+    font-size: 1rem;
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.credit-card-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--input-border-color);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.credit-card-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.order-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.order-summary h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.order-summary p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.confirm-payment-btn {
+    background-color: var(--secondary-color);
+}
+
+.confirm-payment-btn:hover {
+    background-color: var(--secondary-hover-color);
+}

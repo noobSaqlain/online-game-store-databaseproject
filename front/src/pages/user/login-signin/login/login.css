@@ -5,19 +5,19 @@
 }
 
 :root {
-    --bg: #333;
-    ;
+    --bg: #181a2f;
     /* Dark background */
     --fg: #e5e5e5;
     /* Light text */
-    --input-bg: #2d2d42;
+    --input-bg: #37415c;
     /* Dark input background */
-    --button-bg: #6b5b95;
+    --button-bg: #242e49;
     /* Button color */
-    --button-hover: #836fa9;
+    --button-hover: #242e49;
     /* Button hover color */
-    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-color: #710000;
     /* Shadow color */
+    --border-color: #a04747;
 }
 
 body {
@@ -34,14 +34,27 @@ body {
 }
 
 .login-form-wrapper {
-    background-color: var(--input-bg);
+    background-color: #343131;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 16px var(--shadow-color), 0 0 20px rgba(255, 255, 255, 0.2);
     max-width: 400px;
+    border: 1px solid var(--border-color);
     width: 100%;
     text-align: center;
+    box-shadow:
+        0 0 20px rgba(84, 22, 43, 0.8);
     position: relative;
+
+    transition: box-shadow 0.5s ease-in-out;
+
+
+}
+
+.login-form-wrapper:hover {
+    box-shadow:
+        0 0 300px rgba(84, 22, 43, 0.8),
+        /* Deep red glow */
+        0 0 600px rgba(180, 24, 45, 0.6);
 }
 
 .login-form-wrapper::before {
@@ -50,11 +63,18 @@ body {
     top: -10px;
     left: -10px;
     right: -10px;
+
     bottom: -10px;
     border-radius: 12px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 0 30px rgba(84, 22, 43, 0.8),
+        /* Deep red glow */
+        0 0 60px rgba(180, 24, 45, 0.6);
+    /* Bright red glow */
+
     z-index: -1;
 }
+
 
 .login-page-title {
     font-size: 1.8rem;
@@ -133,5 +153,5 @@ body {
 
 .signUpRoute:hover {
     color: #6b5b95;
-    transform: scale(1.25);
+    transform: translateY(-2px);
 }

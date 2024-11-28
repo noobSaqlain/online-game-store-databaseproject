@@ -3,6 +3,7 @@ import axios from 'axios';
 import SideBar from '../../sidebar/sidebar.jsx';
 import NavBar from '../../navbar/navbar.jsx';
 import GameCard from '../../gamecard';
+import Modal from '../modal.jsx'; // Import the modal component
 import '../buyRent.css';
 
 const BuyPage = () => {
@@ -16,6 +17,8 @@ const BuyPage = () => {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [modal, setModal] = useState(false);
+    const [selectedGame, setSelectedGame] = useState(null); // State for selected game
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -39,39 +42,25 @@ const BuyPage = () => {
 
     const filteredGames = games.filter((game) => {
         let isValid = true;
-
-        // Publisher Filter
         if (filters.publisher !== '' && game.publisher !== filters.publisher) {
-            isValid = false; // Exclude if publisher doesn't match
+            isValid = false;
         }
-
-        // Genre Filter
         if (filters.genre !== '' && game.genre !== filters.genre) {
-            isValid = false; // Exclude if genre doesn't match
+            isValid = false;
         }
-
-        // Condition Filter
         if (filters.condition !== '' && game.condition !== filters.condition) {
-            isValid = false; // Exclude if condition doesn't match
+            isValid = false;
         }
-
-        // Price Range Filter
         if (filters.priceRange !== '' && !checkPriceRange(game.price, filters.priceRange)) {
-            isValid = false; // Exclude if price range doesn't match
+            isValid = false;
         }
-
-        // Search Title Filter
         if (filters.searchTitle !== '' && !game.game_name.toLowerCase().includes(filters.searchTitle.toLowerCase())) {
-            isValid = false; // Exclude if title doesn't match the search input
+            isValid = false;
         }
-
-        return isValid; // If all conditions are satisfied, keep the game, otherwise filter out
+        return isValid;
     });
 
-
     function checkPriceRange(price, range) {
-        console.log(price);
-        console.log(range);
         const ranges = {
             '0-20': [0, 20],
             '21-50': [21, 50],
@@ -93,6 +82,18 @@ const BuyPage = () => {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
+
+    // Handle modal open/close
+    const openModal = (game) => {
+        setSelectedGame(game);
+        setModal(true);
+    };
+
+    const closeModal = () => {
+        setModal(false);
+        setSelectedGame(null);
+    };
+
     return (
         <div className="buy-container">
             <NavBar />
@@ -100,12 +101,17 @@ const BuyPage = () => {
             <div className="buy-content">
                 <div className="games-list">
                     {filteredGames.length ? (
-                        filteredGames.map((game) => <GameCard key={game.game_id} game={game} />)
+                        filteredGames.map((game) => (
+                            <GameCard key={game.game_id} game={game} onCardClick={openModal} />
+                        ))
                     ) : (
                         <div className="no-games">No games found matching the filters.</div>
                     )}
                 </div>
             </div>
+
+            {/* Modal Component */}
+            <Modal isOpen={modal} game={selectedGame} onClose={closeModal} />
         </div>
     );
 };

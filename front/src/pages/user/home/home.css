@@ -3,6 +3,7 @@ body {
     /* Remove default margin */
     height: 100vh;
     /* Set body height to 100% of the viewport height */
+    box-sizing: border-box;
 }
 
 .home-wrapper {
