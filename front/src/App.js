@@ -64,6 +64,7 @@ function App() {
       <Route path="/login" element={<Navigate to="/home" />} />
       <Route path="/sign-up" element={<Navigate to="/home" />} />
       <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to={NotFound} />} />
     </>
   );
 
@@ -78,6 +79,7 @@ function App() {
       <Route path="/login" element={<Navigate to="/home" />} />
       <Route path="/sign-up" element={<Navigate to="/home" />} />
       <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to={NotFound} />} />
     </>
   );
 

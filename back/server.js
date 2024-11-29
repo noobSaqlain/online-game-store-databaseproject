@@ -28,6 +28,11 @@ const Query = `
     WHERE 
         L.is_rent = $1
 `;
+const userQuery =
+    ` SELECT u.first_name, u.last_name, u.city, u.email, u.phone_number, g.name as game_name
+    FROM Users u
+    LEFT JOIN Listings l ON l.user_id = u.user_id
+    LEFT JOIN Games g ON g.game_id = l.game_id;`
 const userEmailQuery = `SELECT * FROM USERS WHERE email = $1 AND password = $2`;
 
 
@@ -71,6 +76,22 @@ app.get('/home/buy', async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Failed to fetch games',
+        });
+    }
+});
+
+app.get('/admin', async (req, res) => {
+    try {
+        const result = await db.query(userQuery);
+        res.status(200).json({
+            success: true,
+            data: result.rows,
+        });
+    } catch (error) {
+        console.error('Error executing query', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch data',
         });
     }
 });
