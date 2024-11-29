@@ -22,18 +22,15 @@ export const routingContext = createContext({
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Retrieve authentication state from localStorage
     const storedAuth = localStorage.getItem('isAuthenticated');
-    return storedAuth === 'true'; // Parse boolean value
+    return storedAuth === 'true';
   });
 
   const [isAdmin, setIsAdmin] = useState(() => {
-    // Retrieve admin state from localStorage
     const storedAdmin = localStorage.getItem('isAdmin');
-    return storedAdmin === 'true'; // Parse boolean value
+    return storedAdmin === 'true';
   });
 
-  // Synchronize state with localStorage
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('isAdmin', isAdmin);
@@ -52,6 +49,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<Signin />} />
       <Route path="/" element={<Navigate to="/login" />} />
+      <Route path='*' element={<Navigate to={"/login"} />}></Route>
     </>
   );
 
