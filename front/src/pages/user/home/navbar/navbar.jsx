@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { routingContext } from '../../../../App';
 import './navbar.css';
 import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ isAdmin }) => {
     const navigate = useNavigate();
+    const routingVars = useContext(routingContext);
 
     function handleNavigation(route) {
         navigate(`../home/${route}`);
     }
-    function handleLogout() {
-        console.log("logout clicked");
-        window.localStorage.setItem("isAuthenticated", "false");
-        window.location.reload();
-        //navigate('/'); ///is not working maybe because of updation of the global variable
-    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('isAdmin');
+        routingVars.toggleAuthentication();
+        routingVars.toggleAdmin();
+        navigate('/'); ///is not working maybe because of updation of the global variable
+    };
+
 
 
     return (

@@ -1,28 +1,30 @@
 import './login.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { routingContext } from '../../../../App';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
     const [userName, setUserName] = useState('');
     const [userPassword, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);  // Added loading state
     const navigate = useNavigate();
+    const routingVars = useContext(routingContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
-        setLoading(true);  // Set loading to true
 
-        // Hardcoded admin check
         if (userName === 'agha@iba' && userPassword === 'admin') {
-            onLogin(true); // Admin login
-            navigate('/admin');
-            setLoading(false);  // Reset loading state
+            console.log("admin seen")
+            routingVars.toggleAdmin();
+            routingVars.toggleAuthentication();
+            localStorage.setItem('isAuthenticated', 'true');
+            localStorage.setItem('isAdmin', 'true');
+            navigate('/admin'); // Redirect to admin dashboard
             return;
         }
-
+        console.log("user seen")
         try {
             const response = await axios.post('http://localhost:4000/login', {
                 username: userName,
@@ -30,15 +32,16 @@ const Login = ({ onLogin }) => {
             });
 
             if (response.data.userAllowed) {
-                onLogin(false); // Regular user login
-                navigate('/home');
+                routingVars.toggleAuthentication();
+                localStorage.setItem('isAuthenticated', 'true');
+                localStorage.setItem('isAdmin', 'false'); // User is not admin
+                navigate('/home'); // Redirect to home page
             } else {
                 setError(response.data.message || "Invalid credentials");
             }
         } catch (err) {
+            console.error("Error during login:", err);
             setError("An error occurred. Please try again.");
-        } finally {
-            setLoading(false);  // Reset loading state after request completes
         }
     };
 
@@ -73,10 +76,11 @@ const Login = ({ onLogin }) => {
                             value={userPassword}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {/* Display error message if there's any */}
                         {error && <div className="error-message">{error}</div>}
-                        <button className="loginSubmitButton" type="submit" disabled={loading}>
-                            {loading ? 'Logging in...' : 'Login'}
-                        </button>
+
+                        <button className="loginSubmitButton" type="submit">Login</button>
+
                         <button
                             className="signUpRoute"
                             type="button"
