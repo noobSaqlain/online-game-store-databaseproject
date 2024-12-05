@@ -11,7 +11,9 @@ body {
     /* Use flexbox for layout */
     height: 100vh;
     /* Ensure the wrapper takes the full height */
+    overflow: hidden;
 }
+
 
 .home-buy,
 .home-rent,

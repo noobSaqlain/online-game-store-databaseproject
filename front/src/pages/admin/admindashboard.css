@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    color: black;
 }
 
 /* Container for the entire page */
@@ -29,6 +30,11 @@
         0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
+li {
+    list-style-type: disc;
+    margin-left: 40px;
+}
+
 /* User details section */
 .user-details {
     flex: 3;
@@ -47,6 +53,8 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+
 }
 
 .user-card:hover {
@@ -80,13 +88,19 @@
 }
 
 /* Finance details and transaction history boxes */
-.finance-details,
+.store-details,
 .transaction-history {
     flex: 1;
     background-color: #e8e8e8;
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
+}
+
+.store-details::-webkit-scrollbar,
+.transaction-history::-webkit-scrollbar {
+    display: none;
 }
 
 /* Error message styling */
@@ -94,4 +108,92 @@
     color: red;
     font-size: 16px;
     margin-top: 20px;
+}
+
+.user-details::-webkit-scrollbar {
+    display: none;
+}
+
+/* admin dashboard CSS */
+.delete-btn {
+    background-color: red;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    /* Position it relative to the user card */
+    right: 16px;
+    /* Move it to the right */
+    top: 40%;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+
+
+.store-details h3 {
+    margin-top: 0;
+    /* Remove default margin */
+    font-size: 1.5rem;
+    /* Larger font for emphasis */
+    color: #333;
+    /* Darker text for the heading */
+    text-align: center;
+}
+
+.store-details p {
+    font-size: 1rem;
+    margin: 5px 0;
+    /* Consistent spacing between lines */
+    color: #555;
+    /* Softer color for text */
+}
+
+.store-details details {
+    position: relative;
+    /* Parent element for positioning */
+    margin-top: 10px;
+}
+
+.store-details summary {
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #444;
+    background-color: #f1f1f1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.store-details summary:hover {
+    background-color: #e0e0e0;
+}
+
+.store-details ul {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 10;
+    display: none;
+}
+
+.store-details details[open] ul {
+    display: block;
+    /* Show the list when <details> is open */
+}
+
+.store-details li {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    color: #333;
 }

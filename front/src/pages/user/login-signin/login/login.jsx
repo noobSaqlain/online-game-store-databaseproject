@@ -19,8 +19,7 @@ const Login = () => {
             console.log("admin seen")
             routingVars.toggleAdmin();
             routingVars.toggleAuthentication();
-            localStorage.setItem('isAuthenticated', 'true');
-            localStorage.setItem('isAdmin', 'true');
+            localStorage.setItem('user_id', 'admin');
             navigate('/admin'); // Redirect to admin dashboard
             return;
         }
@@ -33,9 +32,8 @@ const Login = () => {
 
             if (response.data.userAllowed) {
                 routingVars.toggleAuthentication();
-                localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('isAdmin', 'false'); // User is not admin
-                navigate('/home'); // Redirect to home page
+                localStorage.setItem('user_id', response.data.user_id);
+                navigate('/home');
             } else {
                 setError(response.data.message || "Invalid credentials");
             }
@@ -44,7 +42,6 @@ const Login = () => {
             setError("An error occurred. Please try again.");
         }
     };
-
     const signUpRouteHandler = () => {
         navigate('/sign-up');
     };

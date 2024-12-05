@@ -3,8 +3,8 @@ import axios from 'axios';
 import SideBar from '../../sidebar/sidebar.jsx';
 import NavBar from '../../navbar/navbar.jsx';
 import "../buyRent.css";
-import GameCard from '../../gamecard.jsx';
-import Modal from '../modal.jsx';
+import GameCard from '../../gamecard/gamecard.jsx';
+import Modal from '../modal/modal.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const RentPage = () => {

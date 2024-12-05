@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from '../../sidebar/sidebar.jsx';
 import NavBar from '../../navbar/navbar.jsx';
-import GameCard from '../../gamecard';
-import Modal from '../modal.jsx'; // Import the modal component
+import GameCard from '../../gamecard/gamecard.jsx';
+import Modal from '../modal/modal.jsx';
 import '../buyRent.css';
 
 const BuyPage = () => {
@@ -18,7 +18,7 @@ const BuyPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [modal, setModal] = useState(false);
-    const [selectedGame, setSelectedGame] = useState(null); // State for selected game
+    const [selectedGame, setSelectedGame] = useState(null);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -93,6 +93,8 @@ const BuyPage = () => {
         setModal(false);
         setSelectedGame(null);
     };
+
+    console.log(localStorage.getItem("user_id"));
 
     return (
         <div className="buy-container">

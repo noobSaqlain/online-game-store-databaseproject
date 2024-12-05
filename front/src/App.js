@@ -6,38 +6,36 @@ import Home from './pages/user/home/home.jsx';
 import BuyPage from './pages/user/home/homepage/buy/buy.jsx';
 import RentPage from './pages/user/home/homepage/rent/rent.jsx';
 import SellPage from './pages/user/home/homepage/sell/sell.jsx';
-import Payment from './pages/user/home/payment.jsx';
+import Payment from './pages/user/home/payment/payment.jsx';
 import AdminDashboard from './pages/admin/admindashboard.jsx';
 import NotFound from './util/notfound.jsx';
 import ProtectRoute from './util/protectroute.jsx';
 
 
 
-export const routingContext = createContext({
-  isAuthenticated: false,
-  isAdmin: false,
-  toggleAdmin: () => { },
-  toggleAuthentication: () => { },
-});
+export const routingContext = createContext();
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const storedAuth = localStorage.getItem('isAuthenticated');
-    return storedAuth === 'true';
+    return storedAuth === 'true' || false;
   });
 
   const [isAdmin, setIsAdmin] = useState(() => {
     const storedAdmin = localStorage.getItem('isAdmin');
-    return storedAdmin === 'true';
+    return storedAdmin === 'true' || false;
   });
+
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('isAdmin', isAdmin);
+    console.log(localStorage.getItem('isAdmin'))
+    console.log(localStorage.getItem('isAuthenticated'))
   }, [isAuthenticated, isAdmin]);
 
-  const toggleAdmin = () => setIsAdmin((prev) => !prev);
-  const toggleAuthentication = () => setIsAuthenticated((prev) => !prev);
+  const toggleAdmin = () => setIsAdmin(!isAdmin);
+  const toggleAuthentication = () => setIsAuthenticated(!isAuthenticated);
 
   const handleLogin = (admin) => {
     setIsAuthenticated(true);
