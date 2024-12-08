@@ -75,7 +75,7 @@ const Games = () => {
                                 <p>
                                     <strong>Delivery Status:</strong> {game.delivery_status || 'Not Applicable'}
                                 </p>
-                                {game.tracking_number && (
+                                {(!game.isavailable) && (
                                     <select
                                         value={game.delivery_status || 'Pending'}
                                         onChange={(e) =>

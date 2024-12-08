@@ -103,7 +103,7 @@ const db = new pg.Client({
     user: process.env.DB_USER || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     database: process.env.DB_NAME || 'GameStore',
-    password: process.env.DB_PASSWORD || '@AGAsaki1',
+    password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT || 5432,
 });
 
@@ -423,6 +423,7 @@ app.get('/admin/games', async (req, res) => {
                 L.price,
                 L.rate_per_day,
                 L.is_rent,
+                L.isavailable,
                 D.tracking_number,
                 D.delivery_status
             FROM 
