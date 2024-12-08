@@ -12,7 +12,7 @@ const SellPage = () => {
         imageUrl: '',
         price: '',
         ratePerDay: '',
-        isRent: 'N'
+        isRent: 'N',
     });
 
     const navigate = useNavigate();

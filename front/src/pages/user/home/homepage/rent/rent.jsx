@@ -116,7 +116,8 @@ const RentPage = () => {
                 <div className="games-list">
                     {filteredGames.length ? (
                         filteredGames.map((game) => (
-                            <GameCard key={game.game_id} game={game} onCardClick={openModal} />
+                            game.isavailable &&
+                            (<GameCard key={game.game_id} game={game} onCardClick={openModal} />)
                         ))
                     ) : (
                         <div className="no-games">No games found matching the filters.</div>

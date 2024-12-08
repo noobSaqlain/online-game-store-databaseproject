@@ -197,3 +197,21 @@ li {
     margin-bottom: 5px;
     color: #333;
 }
+
+.transaction-history {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.transaction-card {
+
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.transaction-card p {
+    margin: 0.5rem 0;
+}

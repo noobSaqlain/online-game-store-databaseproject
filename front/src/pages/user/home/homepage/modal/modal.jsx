@@ -5,16 +5,15 @@ import "./modal.css";
 const Modal = ({ isOpen, game, onClose, isRent }) => {
     const navigate = useNavigate();
 
-    // State to track the date inputs and error message
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [error, setError] = useState(""); // Track the error message
+    const [error, setError] = useState("");
 
     if (!isOpen) return null;
 
     function toPayment() {
         if (isRent && (!startDate || !endDate)) {
-            setError("Please select both start and end dates."); // Set the error message
+            setError("Please select both start and end dates.");
         } else {
             // Parse the dates to compare
             const start = new Date(startDate);
@@ -22,10 +21,11 @@ const Modal = ({ isOpen, game, onClose, isRent }) => {
             const minRentalPeriod = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
             if (isRent && end - start < minRentalPeriod) {
-                setError("Minimum 7 days are required for rent."); // Set error for invalid rental period
+                setError("Minimum 7 days are required for rent.");
             } else {
+
                 setError(""); // Clear the error message if inputs are valid
-                navigate("/home/payment", { state: { price: game.price } });
+                navigate("/home/payment", { state: { game: game, isRent: isRent, startDate: start, endDate: end } });
             }
         }
     }

@@ -10,7 +10,7 @@ import Payment from './pages/user/home/payment/payment.jsx';
 import AdminDashboard from './pages/admin/admindashboard.jsx';
 import NotFound from './util/notfound.jsx';
 import ProtectRoute from './util/protectroute.jsx';
-
+import Games from './pages/admin/games/games.jsx';
 
 
 export const routingContext = createContext();
@@ -77,6 +77,7 @@ function App() {
       <Route path="/login" element={<Navigate to="/home" />} />
       <Route path="/sign-up" element={<Navigate to="/home" />} />
       <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/admin/games" element={<Games />}></Route>
       <Route path="*" element={<Navigate to={NotFound} />} />
     </>
   );

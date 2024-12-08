@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.admin-games-container {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 160px);
+    /* Adjust for fixed positioning */
+    margin: 20px;
+    margin-top: 140px;
+    position: fixed;
+    z-index: 1;
+    background: #c4cac3;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.admin-games-list::-webkit-scrollbar {
+    display: none;
+}
+
+.admin-games-container h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #4a90e2;
+    margin: 1rem 0 2rem;
+}
+
+.admin-error {
+    color: #e74c3c;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Align game cards properly */
+.admin-games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Cards adjust to container size */
+    gap: 20px;
+    /* Space between cards */
+    overflow: scroll;
+    padding: 10px;
+    /* Internal spacing around the grid */
+}
+
+/* Game card layout and alignment */
+.admin-game-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: left;
+    /* Ensure text aligns left */
+    display: flex;
+    flex-direction: column;
+    /* Stack content vertically */
+    justify-content: space-between;
+    /* Space out items within the card */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-game-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.admin-game-card p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.admin-game-card strong {
+    color: #4a90e2;
+    font-weight: bold;
+}
+
+/* Dropdown styling */
+select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+select:hover {
+    border: 1px solid #4a90e2;
+}
+
+select:focus {
+    outline: none;
+    border: 1px solid #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}

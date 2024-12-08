@@ -10,12 +10,6 @@ function GameCard({ game, onCardClick }) {
         transition: 'border 0.3s, box-shadow 0.3s',
     };
 
-
-
-
-
-
-
     return (
         <div
             key={game.game_id}

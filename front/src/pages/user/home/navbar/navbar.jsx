@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { routingContext } from '../../../../App';
 import './navbar.css';
 import { useNavigate } from "react-router-dom";
-import { FaShoppingCart, FaSignOutAlt, FaUserShield, FaHandHoldingUsd, FaHandshake } from 'react-icons/fa'; // Importing icons
+import { FaShoppingCart, FaSignOutAlt, FaUserShield, FaHandHoldingUsd, FaHandshake, FaGamepad } from 'react-icons/fa'; // Importing icons
 
 
 const NavBar = ({ isAdmin }) => {
@@ -12,6 +12,9 @@ const NavBar = ({ isAdmin }) => {
     function handleNavigation(route) {
         // Navigate to absolute paths
         navigate(route === 'admin' ? '/admin' : `/home/${route}`);
+    }
+    function handleGamesPage() {
+        navigate('/admin/games');
     }
 
     const handleLogout = () => {
@@ -51,7 +54,10 @@ const NavBar = ({ isAdmin }) => {
             </div>
             <div className="buttons">
                 {routingVars.isAdmin && (
-                    <button onClick={() => handleNavigation('admin')}><FaUserShield />Admin</button>
+                    <>
+                        <button onClick={() => handleNavigation('admin')}><FaUserShield />Admin</button>
+                        <button onClick={() => handleGamesPage()}><FaGamepad />Games</button>
+                    </>
                 )}
                 <button onClick={() => handleNavigation('buy')}> <FaShoppingCart /> Buy</button>
                 <button onClick={() => handleNavigation('rent')}><FaHandshake /> Rent</button>

@@ -95,6 +95,8 @@ const BuyPage = () => {
     };
 
     console.log(localStorage.getItem("user_id"));
+    console.log(games)
+
 
     return (
         <div className="buy-container">
@@ -104,7 +106,8 @@ const BuyPage = () => {
                 <div className="games-list">
                     {filteredGames.length ? (
                         filteredGames.map((game) => (
-                            <GameCard key={game.game_id} game={game} onCardClick={openModal} />
+                            game.isavailable &&
+                            (<GameCard key={game.game_id} game={game} onCardClick={openModal} />)
                         ))
                     ) : (
                         <div className="no-games">No games found matching the filters.</div>
@@ -113,7 +116,7 @@ const BuyPage = () => {
             </div>
 
             {/* Modal Component */}
-            <Modal isOpen={modal} game={selectedGame} onClose={closeModal} />
+            <Modal isOpen={modal} game={selectedGame} onClose={closeModal} isRent={false} />
         </div>
     );
 };
