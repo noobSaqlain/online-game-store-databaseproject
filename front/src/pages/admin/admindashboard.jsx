@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     const [details, setDetails] = useState([]);
     const [deliveryStatus, setDeliveryStatus] = useState({
         shipped: 0,
-        inTransit: 0,
+        pending: 0,
         delivered: 0
     });
     const [searchQuery, setSearchQuery] = useState("");
@@ -46,11 +46,11 @@ const AdminDashboard = () => {
                 if (res.data.success) {
                     const totalDeliveries =
                         parseInt(res.data.shipped.rows[0].count, 10) +
-                        parseInt(res.data.transit.rows[0].count, 10) +
+                        parseInt(res.data.pending.rows[0].count, 10) +
                         parseInt(res.data.delivered.rows[0].count, 10);
                     setDeliveryStatus({
                         shipped: res.data.shipped.rows[0].count,
-                        inTransit: res.data.transit.rows[0].count,
+                        pending: res.data.pending.rows[0].count,
                         delivered: res.data.delivered.rows[0].count
                     });
                     setDeliveries(totalDeliveries);
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
                             <summary>total deliveries <strong>:</strong> {deliveries}</summary>
                             <ul>
                                 <li> shipped <strong>:</strong> {deliveryStatus.shipped}</li>
-                                <li>In Transit <strong>:</strong> {deliveryStatus.inTransit}</li>
+                                <li>Pending <strong>:</strong> {deliveryStatus.pending}</li>
                                 <li>delivered <strong>:</strong> {deliveryStatus.delivered}</li>
                             </ul>
                         </details>

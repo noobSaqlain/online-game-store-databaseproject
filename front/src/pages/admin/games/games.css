@@ -7,7 +7,6 @@
 .admin-games-container {
     width: calc(100vw - 40px);
     height: calc(100vh - 160px);
-    /* Adjust for fixed positioning */
     margin: 20px;
     margin-top: 140px;
     position: fixed;
@@ -18,6 +17,36 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
+}
+
+.admin-games-container::-webkit-scrollbar {
+    width: 16px;
+    height: 6px;
+
+}
+
+.admin-games-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.admin-games-container::-webkit-scrollbar-thumb {
+    background-color: #9ea4aa;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+.admin-games-container::-webkit-scrollbar-thumb:hover {
+    background-color: #73abe7;
+}
+
+.admin-games-container::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.admin-games-container::-webkit-scrollbar-button {
+    display: none;
 }
 
 .admin-games-list::-webkit-scrollbar {
@@ -38,31 +67,23 @@
     font-size: 1.2rem;
 }
 
-/* Align game cards properly */
 .admin-games-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    /* Cards adjust to container size */
     gap: 20px;
-    /* Space between cards */
     overflow: scroll;
     padding: 10px;
-    /* Internal spacing around the grid */
 }
 
-/* Game card layout and alignment */
 .admin-game-card {
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 1.5rem;
     text-align: left;
-    /* Ensure text aligns left */
     display: flex;
     flex-direction: column;
-    /* Stack content vertically */
     justify-content: space-between;
-    /* Space out items within the card */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -89,7 +110,6 @@
     font-weight: bold;
 }
 
-/* Dropdown styling */
 select {
     width: 100%;
     padding: 0.5rem;
@@ -109,4 +129,31 @@ select:focus {
     outline: none;
     border: 1px solid #4a90e2;
     box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.admin-search {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.admin-search input {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-search input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.admin-search input::placeholder {
+    color: #888;
+    font-style: italic;
 }

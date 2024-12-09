@@ -5,15 +5,18 @@ import './games.css';
 
 const Games = () => {
     const [games, setGames] = useState([]);
-    const [error, setError] = useState(null);
+    const [filteredGames, setFilteredGames] = useState([]);
+    const [error, setError] = useState();
+    const [searchQuery, setSearchQuery] = useState('');  // State for search query
 
-    // Fetch games data from the backend
+    // Fetch games
     useEffect(() => {
         const fetchGames = async () => {
             try {
                 const res = await axios.get('http://localhost:4000/admin/games');
                 if (res.data.success) {
                     setGames(res.data.games);
+                    setFilteredGames(res.data.games); // Initially display all games
                 } else {
                     setError(res.data.message || 'Failed to fetch games');
                 }
@@ -25,21 +28,16 @@ const Games = () => {
         fetchGames();
     }, []);
 
-    // Handle delivery status change
-    const handleDeliveryStatusChange = async (trackingNumber, newStatus) => {
+    // Handle the delivery status change
+    const handleDeliveryStatusChange = async (deliveryId, newStatus) => {
+        console.log(deliveryId, newStatus);
         try {
-            const res = await axios.put(`http://localhost:4000/admin/delivery-status`, {
-                trackingNumber,
+            const res = await axios.put('http://localhost:4000/admin/delivery-status', {
+                deliveryId: deliveryId,
                 status: newStatus,
             });
             if (res.data.success) {
-                setGames((prevGames) =>
-                    prevGames.map((game) =>
-                        game.tracking_number === trackingNumber
-                            ? { ...game, delivery_status: newStatus }
-                            : game
-                    )
-                );
+                console.log('Worked');
             } else {
                 setError(res.data.message || 'Failed to update delivery status');
             }
@@ -49,15 +47,42 @@ const Games = () => {
         }
     };
 
+    // Filter games based on search query
+    const handleSearchChange = (e) => {
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+
+        const filtered = games.filter((game) => {
+            return (
+                game.game_name.toLowerCase().includes(query) ||  // Search by game name
+                (game.first_name && game.first_name.toLowerCase().includes(query)) ||  // Search by owner's first name
+                (game.last_name && game.last_name.toLowerCase().includes(query)) // Search by owner's last name
+            );
+        });
+
+        setFilteredGames(filtered); // Update the filtered list
+    };
+
     return (
         <>
             <NavBar />
             <div className="admin-games-container">
                 <h1>Games</h1>
                 {error && <p className="admin-error">{error}</p>}
+
+                {/* Search input */}
+                <div className="admin-search">
+                    <input
+                        type="text"
+                        placeholder="Search by game name or owner..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                </div>
+
                 <div className="admin-games-list">
-                    {games.length > 0 ? (
-                        games.map((game, index) => (
+                    {filteredGames.length > 0 ? (
+                        filteredGames.map((game, index) => (
                             <div key={index} className="admin-game-card">
                                 <h2>{game.game_name}</h2>
                                 <p>
@@ -77,14 +102,27 @@ const Games = () => {
                                 </p>
                                 {(!game.isavailable) && (
                                     <select
-                                        value={game.delivery_status || 'Pending'}
-                                        onChange={(e) =>
-                                            handleDeliveryStatusChange(game.tracking_number, e.target.value)
-                                        }
+                                        value={game.delivery_status}
+                                        onChange={(e) => {
+                                            // If the current status is already 'Delivered', prevent any change
+                                            if (game.delivery_status === 'Delivered') {
+                                                return; // Don't allow any changes
+                                            }
+
+                                            // Otherwise, proceed with status update
+                                            handleDeliveryStatusChange(game.delivery_id, e.target.value);
+                                        }}
+                                        disabled={game.delivery_status === 'delivered'}  // Disable the entire select when status is 'Delivered'
                                     >
-                                        <option value="Pending">Pending</option>
-                                        <option value="Shipped">Shipped</option>
-                                        <option value="Delivered">Delivered</option>
+                                        <option value="Pending" disabled={game.delivery_status === 'delivered'}>
+                                            {game.delivery_status === 'delivered' ? 'Closed' : 'Pending'}
+                                        </option>
+                                        <option value="Shipped" disabled={game.delivery_status === 'delivered'}>
+                                            Shipped
+                                        </option>
+                                        <option value="Delivered" disabled={game.delivery_status === 'delivered'}>
+                                            Delivered
+                                        </option>
                                     </select>
                                 )}
                             </div>

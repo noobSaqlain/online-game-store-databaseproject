@@ -47,7 +47,7 @@ const numberOfGamesQuery = `select count(*) from games`;
 const numberofPurchases = `select count(*) from purchases`;
 const numberOfRents = `select count(*) from rentals`;
 const shipped = `select count(*) from delivery where delivery_status = 'Shipped'`;
-const inTransit = `select count(*) from delivery where delivery_status = 'In Transit'`;
+const pending = `select count(*) from delivery where delivery_status = 'Pending'`;
 const delivered = `select count(*) from delivery where delivery_status = 'Delivered'`;
 const details = `SELECT 
     u.first_name AS user_first_name,
@@ -101,9 +101,9 @@ app.use(express.static("public"));
 
 const db = new pg.Client({
     user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    database: process.env.DB_NAME || 'GameStore',
-    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST || YOUR_HOST,
+    database: process.env.DB_NAME || YOUR_DATABASE_NAME,
+    password: process.env.DB_PASSWORD || YOUR_PASSWORD,
     port: process.env.DB_PORT || 5432,
 });
 
@@ -143,7 +143,7 @@ app.get('/admin', async (req, res) => {
         const noOfPurchases = await db.query(numberofPurchases);
         const noOfRents = await db.query(numberOfRents);
         const dShipped = await db.query(shipped);
-        const dInTransit = await db.query(inTransit);
+        const dPending = await db.query(pending);
         const dDelivered = await db.query(delivered);
         const dDetails = await db.query(details);
         const dAvailableGames = await db.query(availableGames);
@@ -152,7 +152,7 @@ app.get('/admin', async (req, res) => {
             games: noOfgames,
             purchases: noOfPurchases,
             rents: noOfRents,
-            transit: dInTransit,
+            pending: dPending,
             delivered: dDelivered,
             shipped: dShipped,
             details: dDetails,
@@ -166,7 +166,7 @@ app.get('/admin', async (req, res) => {
             gamesCount: 0,
             purchases: 0,
             rents: 0,
-            transit: 0,
+            pending: 0,
             delivered: 0,
             shipped: 0,
             details: [],
@@ -424,6 +424,7 @@ app.get('/admin/games', async (req, res) => {
                 L.rate_per_day,
                 L.is_rent,
                 L.isavailable,
+                D.delivery_id,
                 D.tracking_number,
                 D.delivery_status
             FROM 
@@ -456,6 +457,30 @@ app.get('/admin/games', async (req, res) => {
         });
     }
 });
+
+app.put('/admin/delivery-status', async (req, res) => {
+    const { status, deliveryId } = req.body;
+
+    try {
+        if (!status || !deliveryId) {
+            return res.status(400).json({ success: false, message: 'Status and deliveryId are required' });
+        }
+
+        const result = await db.query(
+            'UPDATE delivery SET delivery_status = $1 WHERE delivery_id = $2',
+            [status, deliveryId]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: 'Delivery ID not found' });
+        }
+        return res.status(200).json({ success: true, message: 'Delivery status updated successfully' });
+    } catch (e) {
+        console.error('Error updating delivery status:', e);
+        return res.status(500).json({ success: false, message: 'An error occurred while updating the delivery status' });
+    }
+});
+
 
 
 
